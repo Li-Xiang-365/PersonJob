@@ -1,10 +1,11 @@
 <template>
   <div class="starry">
     <!-- 画布元素，用于渲染星空效果 -->
+    <!-- 星星跟随鼠标移动时的位置参数 -->
+    <!--@mousemove="onMouseMove"-->
     <canvas
       class="star"
       ref="star"
-      @mousemove="onMouseMove"
       @touchmove="onTouchMove"
       @touchstart="onTouchStart"
       @touchend="onTouchEnd"
@@ -53,6 +54,7 @@ const init = () => {
   // 初始化星空效果相关方法
   generateStars(); // 生成星星数据
   setupCanvas(); // 设置画布
+  // autoMove();
   startAnimation(); // 开始动画
   // 监听窗口大小变化事件，确保画布自适应
   window.addEventListener("resize", handleResize);
@@ -203,6 +205,7 @@ const step = () => {
   // 清除画布内容
   ctx.value.clearRect(0, 0, width.value, height.value);
   // 更新星星位置
+  autoMove();
   update();
   // 渲染星星
   render();
@@ -288,6 +291,13 @@ const render = () => {
     ctx.value.lineTo(star.x + tailx, star.y + taily);
     ctx.value.stroke();
   });
+};
+// 星星自动移动
+const autoMove = () => {
+  // 增加基础速度值
+  const baseSpeed = 5;
+  velocity.tx = 1 * baseSpeed;
+  velocity.ty = 1 * baseSpeed;
 };
 
 // 移动指针
@@ -383,9 +393,13 @@ onBeforeUnmount(() => {
 
 <style lang="less" scoped>
 .starry {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
+  z-index: -1; /* 确保背景在内容下方 */
 
   /* 添加渐变背景 */
   background: linear-gradient(135deg, #000428, #004e92);
@@ -394,6 +408,6 @@ onBeforeUnmount(() => {
 .star {
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: -1; /* 确保背景在内容下方 */
 }
 </style>

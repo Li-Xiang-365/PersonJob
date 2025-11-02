@@ -4,10 +4,19 @@
       <div class="nav-logo">
         <router-link to="/">个人主页</router-link>
       </div>
-      <div class="nav-menu" :class="{ 'active': isMenuOpen }">
-        <router-link to="/" class="nav-link" @click="toggleMenu">首页</router-link>
-        <router-link to="/skills" class="nav-link" @click="toggleMenu">技能</router-link>
-        <router-link to="/works" class="nav-link" @click="toggleMenu">作品</router-link>
+      <div class="nav-menu" :class="{ active: isMenuOpen }">
+        <router-link to="/about" class="nav-link" @click="toggleMenu"
+          >首页</router-link
+        >
+        <router-link to="/about" class="nav-link" @click="toggleMenu"
+          >关于</router-link
+        >
+        <router-link to="/skills" class="nav-link" @click="toggleMenu"
+          >技能</router-link
+        >
+        <router-link to="/works" class="nav-link" @click="toggleMenu"
+          >作品</router-link
+        >
       </div>
       <div class="nav-toggle" @click="toggleMenu">
         <span class="bar"></span>
@@ -19,12 +28,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const isMenuOpen = ref(false);
 
 const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value};
+  isMenuOpen.value = !isMenuOpen.value;
+};
 </script>
 
 <style lang="less" scoped>
@@ -81,7 +91,8 @@ const toggleMenu = () => {
           transition: width 0.3s ease;
         }
 
-        &:hover, &.router-link-active {
+        &:hover,
+        &.router-link-active {
           color: #4a90e2;
 
           &:after {
