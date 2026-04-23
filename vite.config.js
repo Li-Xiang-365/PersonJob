@@ -14,7 +14,7 @@ import ElementPlus from "unplugin-element-plus/vite";
 export default defineConfig({
   plugins: [
     vue(),
-    vueDevTools(),
+    // vueDevTools(),
     AutoImport({
       resolvers: [ElementPlusResolver()],
     }),

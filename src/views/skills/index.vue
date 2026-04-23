@@ -94,7 +94,7 @@ const skills = [
         name: "数据库",
         icon: "fas fa-database",
         level: 85,
-        description: "熟练使用MySQL、MongoDB等数据库进行数据存储和查询",
+        description: "熟练使用MySQL数据库进行数据存储和查询",
       },
     ],
   },
@@ -106,12 +106,6 @@ const skills = [
         icon: "fab fa-git-alt",
         level: 90,
         description: "熟练使用Git进行版本控制和团队协作",
-      },
-      {
-        name: "Webpack",
-        icon: "fas fa-cube",
-        level: 80,
-        description: "配置和使用Webpack构建现代前端应用",
       },
       {
         name: "UI/UX设计",
