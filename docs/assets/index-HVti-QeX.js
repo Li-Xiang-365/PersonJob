@@ -1,1 +1,0 @@
-import{_ as t,c as n,e as o,d as s}from"./index-y7o9ksce.js";const r={};function a(c,e,d,l,p,_){return s(),n("div",null,e[0]||(e[0]=[o("h1",null,"404",-1)]))}const i=t(r,[["render",a]]);export{i as default};
