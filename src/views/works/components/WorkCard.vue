@@ -3,7 +3,7 @@
     <div class="work-image">
       <img :src="work.image" :alt="work.title" />
       <div class="work-overlay">
-        <span class="work-category">{{ categoryName }}</span>
+        <span class="work-category">{{ work.category }}</span>
       </div>
     </div>
     <div class="work-info">
@@ -21,10 +21,6 @@ defineProps({
   work: {
     type: Object,
     required: true,
-  },
-  categoryName: {
-    type: String,
-    default: "",
   },
 });
 

@@ -26,8 +26,8 @@ const router = useRouter();
 const navItems = [
   { name: "首页", path: "/home/about" },
   { name: "技能", path: "/home/skills" },
-  { name: "作品", path: "/home/works" },
   { name: "经历", path: "/home/experience" },
+  { name: "作品", path: "/home/works" },
   { name: "AI", path: "/home/ai-chat" },
 ];
 

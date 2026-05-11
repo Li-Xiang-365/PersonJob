@@ -4,7 +4,8 @@
       <h1 class="page-title">我的技能</h1>
       <div class="page-intro">
         <p>
-          我掌握多种技术和工具，能够胜任从前端的各类开发任务。以下是我熟练掌握的主要技术领域和工具：
+          专注于 <strong>前端开发</strong>，熟练掌握 <strong>Vue 全家桶</strong> 与
+          <strong>TypeScript</strong>，具备小程序跨端、性能优化及 Node.js 后端接口开发能力。
         </p>
       </div>
 
@@ -25,7 +26,14 @@
                 <div class="skill-icon">
                   <i :class="skill.icon"></i>
                 </div>
-                <h3>{{ skill.name }}</h3>
+                <div class="skill-header-text">
+                  <h3>{{ skill.name }}</h3>
+                  <div class="skill-tags" v-if="skill.tags?.length">
+                    <span class="tag" v-for="tag in skill.tags" :key="tag">{{
+                      tag
+                    }}</span>
+                  </div>
+                </div>
               </div>
               <div class="skill-level">
                 <div class="skill-progress">
@@ -34,7 +42,7 @@
                     :style="{ width: skill.level + '%' }"
                   ></div>
                 </div>
-                <span class="level-text">{{ skill.level }}%</span>
+                <span class="level-text">{{ skill.levelText }}</span>
               </div>
               <p class="skill-description">{{ skill.description }}</p>
             </div>
@@ -50,72 +58,7 @@
 </template>
 
 <script setup>
-const skills = [
-  {
-    name: "前端技术",
-    items: [
-      {
-        name: "Vue.js",
-        icon: "fab fa-vuejs",
-        level: 80,
-        description: "熟练使用Vue.js及其生态系统(Vuex, Vue Router)构建单页应用",
-      },
-      {
-        name: "uniapp",
-        icon: "fab fa-css3-alt",
-        level: 70,
-        description: "能够使用uniapp进行小程序、h5开发",
-      },
-      {
-        name: "JavaScript",
-        icon: "fab fa-js",
-        level: 85,
-        description: "精通ES6+语法，熟悉异步编程、函数式编程等高级特性",
-      },
-      {
-        name: "CSS/SCSS",
-        icon: "fab fa-css3-alt",
-        level: 90,
-        description: "熟练使用CSS3动画、Flexbox、Grid布局，以及SCSS预处理器",
-      },
-    ],
-  },
-  {
-    name: "后端技术",
-    items: [
-      {
-        name: "Node.js",
-        icon: "fab fa-node-js",
-        level: 85,
-        description: "使用Node.js构建RESTful API和实时应用",
-      },
-
-      {
-        name: "数据库",
-        icon: "fas fa-database",
-        level: 85,
-        description: "熟练使用MySQL数据库进行数据存储和查询",
-      },
-    ],
-  },
-  {
-    name: "工具与其他",
-    items: [
-      {
-        name: "Git",
-        icon: "fab fa-git-alt",
-        level: 90,
-        description: "熟练使用Git进行版本控制和团队协作",
-      },
-      {
-        name: "UI/UX设计",
-        icon: "fas fa-paint-brush",
-        level: 70,
-        description: "具备基础UI/UX设计能力，能够制作交互原型",
-      },
-    ],
-  },
-];
+import { skills } from "./skillsData.js";
 </script>
 
 <style lang="less" scoped>
@@ -144,6 +87,11 @@ const skills = [
         color: rgba(200, 225, 228, 0.82);
         font-size: 1.05rem;
         line-height: 1.7;
+
+        strong {
+          color: rgba(64, 212, 190, 0.95);
+          font-weight: 600;
+        }
       }
     }
 
@@ -205,12 +153,13 @@ const skills = [
 
             .skill-header {
               display: flex;
-              align-items: center;
+              align-items: flex-start;
               margin-bottom: 20px;
 
               .skill-icon {
                 width: 50px;
                 height: 50px;
+                flex-shrink: 0;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -225,9 +174,34 @@ const skills = [
                 }
               }
 
-              h3 {
-                font-size: 1.25rem;
-                color: #e8ecf4;
+              .skill-header-text {
+                flex: 1;
+                min-width: 0;
+
+                h3 {
+                  font-size: 1.15rem;
+                  color: #e8ecf4;
+                  margin-bottom: 6px;
+                  line-height: 1.3;
+                }
+
+                .skill-tags {
+                  display: flex;
+                  flex-wrap: wrap;
+                  gap: 6px;
+
+                  .tag {
+                    display: inline-block;
+                    padding: 2px 8px;
+                    font-size: 0.72rem;
+                    color: rgba(64, 212, 190, 0.88);
+                    background: rgba(0, 200, 170, 0.08);
+                    border: 1px solid rgba(0, 200, 170, 0.12);
+                    border-radius: 4px;
+                    line-height: 1.5;
+                    white-space: nowrap;
+                  }
+                }
               }
             }
 

@@ -7,12 +7,12 @@
           <button class="close-btn" @click="handleClose">&times;</button>
         </div>
         <div class="modal-body">
-          <div class="modal-image">
+          <!-- <div class="modal-image">
             <img :src="work.image" :alt="work.title" />
-          </div>
+          </div> -->
           <div class="modal-info">
             <div class="info-section">
-              <h3>项目简介</h3>
+              <!-- <h3>项目简介</h3> -->
               <template v-if="work.mdPath">
                 <div v-if="mdLoading" class="md-loading">加载中...</div>
                 <VueMarkdown
@@ -130,7 +130,7 @@ watch(
     if (val && props.work.mdPath) {
       await loadMarkdown(props.work.mdPath);
     }
-  }
+  },
 );
 
 watch(mdContent, () => bindMdImgClick());
