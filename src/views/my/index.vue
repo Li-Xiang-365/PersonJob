@@ -67,7 +67,6 @@ const showImage = function (type) {
     isModalOpen.value = true;
   }
 };
-
 const closeModal = function () {
   isModalOpen.value = false;
 };
@@ -87,35 +86,42 @@ const closeModal = function () {
     max-width: 600px;
 
     .profile-card {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 15px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 35px;
+      box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
       animation: fadeIn 0.8s ease-in-out;
 
       .avatar {
-        margin-bottom: 20px;
+        margin-bottom: 22px;
 
         img {
-          width: 150px;
-          height: 150px;
+          width: 130px;
+          height: 130px;
           border-radius: 50%;
           object-fit: cover;
-          border: 5px solid #fff;
-          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+          border: 3px solid rgba(255, 255, 255, 0.22);
+          box-shadow: 0 4px 20px rgba(0, 200, 170, 0.25);
         }
       }
 
       h1 {
-        font-size: 2.5rem;
+        font-size: 2.3rem;
         margin-bottom: 10px;
-        color: #333;
+        color: #f0f0f0;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
       }
 
       .title {
-        font-size: 1.2rem;
-        color: #666;
-        margin-bottom: 20px;
+        font-size: 1.1rem;
+        color: rgba(64, 212, 190, 0.9);
+        margin-bottom: 22px;
+        letter-spacing: 1px;
       }
 
       .info {
@@ -123,47 +129,52 @@ const closeModal = function () {
         margin-bottom: 25px;
 
         p {
-          margin: 8px 0;
-          color: #555;
+          margin: 9px 0;
+          color: rgba(220, 235, 240, 0.88);
+          font-size: 0.95rem;
         }
       }
 
       .bio {
         text-align: left;
-        margin-bottom: 25px;
+        margin-bottom: 28px;
 
         p {
           margin: 0;
-          color: #666;
-          line-height: 1.6;
+          color: rgba(200, 220, 230, 0.82);
+          line-height: 1.7;
+          font-size: 0.93rem;
         }
       }
 
       .social-links {
         display: flex;
         justify-content: center;
-        gap: 15px;
-        margin-bottom: 25px;
+        gap: 14px;
+        margin-bottom: 28px;
 
         .social-link {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 40px;
-          height: 40px;
+          width: 42px;
+          height: 42px;
           border-radius: 50%;
-          background: #f5f5f5;
-          color: #555;
+          background: rgba(255, 255, 255, 0.07);
+          color: rgba(120, 210, 195, 0.85);
           text-decoration: none;
           transition: all 0.3s ease;
+          border: 1px solid rgba(255, 255, 255, 0.07);
 
           &:hover {
-            background: #4a90e2;
+            background: rgba(0, 200, 170, 0.28);
             color: #fff;
+            transform: translateY(-2px);
+            border-color: rgba(0, 200, 170, 0.35);
           }
 
           i {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
           }
         }
       }
@@ -171,30 +182,44 @@ const closeModal = function () {
       .actions {
         display: flex;
         justify-content: center;
-        gap: 15px;
+        gap: 14px;
 
         .btn {
-          padding: 10px 25px;
+          padding: 11px 26px;
           border-radius: 25px;
           text-decoration: none;
           font-weight: 500;
           transition: all 0.3s ease;
+          letter-spacing: 0.5px;
 
           &.primary {
-            background: #4a90e2;
+            background: linear-gradient(
+              135deg,
+              rgba(0, 190, 170, 0.7),
+              rgba(8, 145, 178, 0.7)
+            );
             color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.12);
 
             &:hover {
-              background: #357abd;
+              background: linear-gradient(
+                135deg,
+                rgba(0, 215, 192, 0.85),
+                rgba(14, 185, 213, 0.85)
+              );
+              box-shadow: 0 4px 18px rgba(0, 190, 170, 0.35);
+              transform: translateY(-1px);
             }
           }
 
           &.secondary {
-            background: #f5f5f5;
-            color: #555;
+            background: rgba(255, 255, 255, 0.07);
+            color: rgba(120, 210, 195, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
 
             &:hover {
-              background: #e0e0e0;
+              background: rgba(255, 255, 255, 0.15);
+              border-color: rgba(255, 255, 255, 0.18);
             }
           }
         }

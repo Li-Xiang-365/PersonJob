@@ -1,169 +1,197 @@
 <template>
-  <nav class="navbar">
-    <div class="nav-container">
-      <div class="nav-logo">
-        <router-link to="/">个人主页</router-link>
-      </div>
-      <div class="nav-menu" :class="{ active: isMenuOpen }">
-        <router-link to="/about" class="nav-link" @click="toggleMenu"
-          >首页</router-link
-        >
-        <router-link to="/about" class="nav-link" @click="toggleMenu"
-          >关于</router-link
-        >
-        <router-link to="/skills" class="nav-link" @click="toggleMenu"
-          >技能</router-link
-        >
-        <router-link to="/works" class="nav-link" @click="toggleMenu"
-          >作品</router-link
-        >
-      </div>
-      <div class="nav-toggle" @click="toggleMenu">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </div>
-    </div>
+  <nav class="float-nav" @wheel.prevent="navigateByWheel">
+    <router-link
+      v-for="(item, index) in navItems"
+      :key="item.path"
+      :to="item.path"
+      class="nav-item"
+      :title="item.name"
+      :class="{ active: currentIndex === index }"
+    >
+      <span class="nav-dot">
+        <span v-if="currentIndex === index" class="nav-dot-inner"></span>
+      </span>
+      <span class="nav-label">{{ item.name }}</span>
+    </router-link>
   </nav>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
-const isMenuOpen = ref(false);
+const route = useRoute();
+const router = useRouter();
 
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value;
-};
+const navItems = [
+  { name: "首页", path: "/home/about" },
+  { name: "技能", path: "/home/skills" },
+  { name: "作品", path: "/home/works" },
+  { name: "经历", path: "/home/experience" },
+  { name: "AI", path: "/home/ai-chat" },
+];
+
+const currentIndex = ref(0);
+const isScrolling = ref(false);
+let wheelTimer = null;
+const SCROLL_COOLDOWN = 300;
+
+const findIndex = (path) => navItems.findIndex((item) => item.path === path);
+
+watch(
+  () => route.path,
+  (path) => {
+    const idx = findIndex(path);
+    if (idx !== -1) currentIndex.value = idx;
+  },
+  { immediate: true },
+);
+
+function navigateByWheel(e) {
+  if (isScrolling.value) return;
+  isScrolling.value = true;
+
+  const delta = e.deltaY > 0 ? 1 : -1;
+  const nextIndex = currentIndex.value + delta;
+
+  if (nextIndex >= 0 && nextIndex < navItems.length) {
+    router.push(navItems[nextIndex].path);
+  }
+
+  clearTimeout(wheelTimer);
+  wheelTimer = setTimeout(() => {
+    isScrolling.value = false;
+  }, SCROLL_COOLDOWN);
+}
 </script>
 
 <style lang="less" scoped>
-.navbar {
+.float-nav {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 14px 10px;
+  border-radius: 28px;
+  transition: background 0.3s ease;
 
-  .nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+  &:hover {
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+
+    .nav-item .nav-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .nav-item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    height: 70px;
+    gap: 14px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    .nav-logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-
-      a {
-        color: #333;
-        text-decoration: none;
-
-        &:hover {
-          color: #4a90e2;
-        }
-      }
-    }
-
-    .nav-menu {
+    .nav-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      border: 2.5px solid rgba(120, 210, 195, 0.5);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
+      position: relative;
       display: flex;
+      align-items: center;
+      justify-content: center;
 
-      .nav-link {
-        margin-left: 30px;
-        color: #333;
-        text-decoration: none;
-        font-weight: 500;
-        position: relative;
-
-        &:after {
-          content: "";
-          position: absolute;
-          bottom: -5px;
-          left: 0;
-          width: 0;
-          height: 2px;
-          background: #4a90e2;
-          transition: width 0.3s ease;
-        }
-
-        &:hover,
-        &.router-link-active {
-          color: #4a90e2;
-
-          &:after {
-            width: 100%;
-          }
-        }
+      .nav-dot-inner {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #fff;
+        animation: dotPulse 1.8s ease-in-out infinite;
       }
     }
 
-    .nav-toggle {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
+    .nav-label {
+      font-size: 15px;
+      color: rgba(200, 220, 230, 0.65);
+      font-weight: 500;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
 
-      .bar {
-        width: 25px;
-        height: 3px;
-        background: #333;
-        margin: 3px 0;
-        transition: 0.3s;
+    &:hover {
+      .nav-dot {
+        background: rgba(0, 200, 170, 0.35);
+        border-color: rgba(64, 212, 190, 0.85);
+        box-shadow: 0 0 18px rgba(0, 200, 170, 0.35);
+        transform: scale(1.15);
+      }
+
+      .nav-label {
+        color: rgba(220, 240, 235, 0.95);
+      }
+    }
+
+    &.router-link-active,
+    &.active {
+      .nav-dot {
+        background: linear-gradient(
+          135deg,
+          rgba(0, 190, 170, 0.8),
+          rgba(8, 145, 178, 0.8)
+        );
+        border-color: transparent;
+        box-shadow:
+          0 0 20px rgba(0, 190, 170, 0.5),
+          0 0 40px rgba(0, 190, 170, 0.15);
+      }
+
+      .nav-label {
+        opacity: 1;
+        transform: translateX(0);
+        color: #2dd4bf;
+        text-shadow: 0 0 12px rgba(45, 212, 191, 0.3);
       }
     }
   }
 }
 
+@keyframes dotPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.7);
+  }
+}
+
 @media (max-width: 768px) {
-  .navbar {
-    .nav-container {
-      .nav-menu {
-        position: fixed;
-        left: -100%;
-        top: 70px;
-        flex-direction: column;
-        background-color: rgba(255, 255, 255, 0.98);
-        width: 100%;
-        text-align: center;
-        transition: 0.3s;
-        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-        padding: 20px 0;
+  .float-nav {
+    left: 12px;
+    gap: 18px;
 
-        &.active {
-          left: 0;
-        }
-
-        .nav-link {
-          margin: 15px 0;
-
-          &:after {
-            display: none;
-          }
-        }
+    .nav-item {
+      .nav-dot {
+        width: 14px;
+        height: 14px;
       }
 
-      .nav-toggle {
-        display: flex;
-
-        .bar {
-          transform: none;
-        }
-
-        &.active .bar:nth-child(2) {
-          opacity: 0;
-        }
-
-        &.active .bar:nth-child(1) {
-          transform: translateY(8px) rotate(45deg);
-        }
-
-        &.active .bar:nth-child(3) {
-          transform: translateY(-8px) rotate(-45deg);
-        }
+      .nav-label {
+        font-size: 13px;
       }
     }
   }

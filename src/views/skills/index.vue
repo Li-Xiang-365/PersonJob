@@ -122,7 +122,6 @@ const skills = [
 .skills {
   min-height: 100vh;
   padding: 40px 20px;
-  // background: rgba(255, 255, 255, 0.8);
 
   .container {
     max-width: 1200px;
@@ -132,7 +131,8 @@ const skills = [
       text-align: center;
       font-size: 2.5rem;
       margin-bottom: 40px;
-      color: #ffffff;
+      color: #f0f0f0;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
     .page-intro {
@@ -141,9 +141,9 @@ const skills = [
       margin: 0 auto 40px;
 
       p {
-        color: #bababa;
-        font-size: 1.1rem;
-        line-height: 1.6;
+        color: rgba(200, 225, 228, 0.82);
+        font-size: 1.05rem;
+        line-height: 1.7;
       }
     }
 
@@ -152,11 +152,12 @@ const skills = [
         margin-bottom: 50px;
 
         .category-title {
-          font-size: 1.8rem;
+          font-size: 1.7rem;
           margin-bottom: 25px;
-          color: #4a90e2;
+          color: rgba(64, 212, 190, 0.95);
           position: relative;
           padding-bottom: 10px;
+          text-shadow: 0 0 20px rgba(0, 200, 170, 0.3);
 
           &:after {
             content: "";
@@ -165,7 +166,12 @@ const skills = [
             left: 0;
             width: 60px;
             height: 3px;
-            background: #4a90e2;
+            background: linear-gradient(
+              90deg,
+              rgba(0, 200, 170, 0.75),
+              transparent
+            );
+            border-radius: 2px;
           }
         }
 
@@ -175,15 +181,26 @@ const skills = [
           gap: 25px;
 
           .skill-card {
-            background: #fff;
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 14px;
             padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow:
+              0 6px 24px rgba(0, 0, 0, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transition:
+              transform 0.3s ease,
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
 
             &:hover {
               transform: translateY(-5px);
-              box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+              box-shadow:
+                0 12px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+              border-color: rgba(0, 200, 170, 0.22);
             }
 
             .skill-header {
@@ -197,19 +214,20 @@ const skills = [
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                border-radius: 10px;
-                background: #f5f5f5;
+                border-radius: 12px;
+                background: rgba(0, 200, 170, 0.1);
+                border: 1px solid rgba(0, 200, 170, 0.13);
                 margin-right: 15px;
 
                 i {
-                  font-size: 1.8rem;
-                  color: #4a90e2;
+                  font-size: 1.7rem;
+                  color: rgba(45, 212, 191, 0.9);
                 }
               }
 
               h3 {
-                font-size: 1.3rem;
-                color: #333;
+                font-size: 1.25rem;
+                color: #e8ecf4;
               }
             }
 
@@ -221,13 +239,17 @@ const skills = [
               .skill-progress {
                 flex-grow: 1;
                 height: 8px;
-                background: #f0f0f0;
+                background: rgba(255, 255, 255, 0.07);
                 border-radius: 4px;
                 overflow: hidden;
 
                 .progress-bar {
                   height: 100%;
-                  background: #4a90e2;
+                  background: linear-gradient(
+                    90deg,
+                    rgba(0, 190, 170, 0.72),
+                    rgba(8, 145, 178, 0.72)
+                  );
                   border-radius: 4px;
                   transition: width 1s ease;
                 }
@@ -236,13 +258,15 @@ const skills = [
               .level-text {
                 margin-left: 10px;
                 font-weight: 600;
-                color: #4a90e2;
+                color: rgba(64, 208, 188, 0.95);
+                font-size: 0.9rem;
               }
             }
 
             .skill-description {
-              color: #666;
-              line-height: 1.6;
+              color: rgba(185, 215, 222, 0.78);
+              line-height: 1.65;
+              font-size: 0.92rem;
             }
           }
         }
@@ -255,16 +279,28 @@ const skills = [
 
       .btn {
         display: inline-block;
-        padding: 12px 30px;
-        background: #4a90e2;
+        padding: 12px 32px;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 190, 170, 0.62),
+          rgba(8, 145, 178, 0.62)
+        );
         color: #fff;
         border-radius: 25px;
         text-decoration: none;
         font-weight: 500;
-        transition: background 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
 
         &:hover {
-          background: #357abd;
+          background: linear-gradient(
+            135deg,
+            rgba(0, 215, 192, 0.8),
+            rgba(14, 185, 213, 0.8)
+          );
+          box-shadow: 0 4px 18px rgba(0, 190, 170, 0.3);
+          transform: translateY(-1px);
         }
       }
     }

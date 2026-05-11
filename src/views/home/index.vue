@@ -7,7 +7,11 @@ import BgCanvas from "@/components/BgCanvas.vue";
   <div class="home">
     <BgCanvas class="bg_canvas" />
     <!-- <Navigation /> -->
-    <router-view />
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>
 
@@ -35,5 +39,15 @@ import BgCanvas from "@/components/BgCanvas.vue";
 :deep(.router-view) {
   position: relative;
   z-index: 1;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.1s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

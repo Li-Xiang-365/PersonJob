@@ -21,30 +21,13 @@
       </div>
 
       <div class="works-grid">
-        <div
+        <WorkCard
           v-for="work in filteredWorks"
           :key="work.id"
-          class="work-card"
+          :work="work"
+          :category-name="getCategoryName(work.category)"
           @click="showWorkDetail(work)"
-        >
-          <div class="work-image">
-            <img :src="work.image" :alt="work.title" />
-            <div class="work-overlay">
-              <span class="work-category">{{
-                getCategoryName(work.category)
-              }}</span>
-            </div>
-          </div>
-          <div class="work-info">
-            <h3>{{ work.title }}</h3>
-            <p>{{ work.description }}</p>
-            <div class="work-tags">
-              <span v-for="tag in work.tags" :key="tag" class="tag">{{
-                tag
-              }}</span>
-            </div>
-          </div>
-        </div>
+        />
       </div>
 
       <div class="back-to-home">
@@ -53,62 +36,23 @@
     </div>
 
     <!-- 作品详情弹窗 -->
-    <div v-if="selectedWork" class="work-modal" @click.self="closeWorkDetail">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2>{{ selectedWork.title }}</h2>
-          <button class="close-btn" @click="closeWorkDetail">&times;</button>
-        </div>
-        <div class="modal-body">
-          <div class="modal-image">
-            <img :src="selectedWork.image" :alt="selectedWork.title" />
-          </div>
-          <div class="modal-info">
-            <div class="info-section">
-              <h3>项目简介</h3>
-              <p>{{ selectedWork.fullDescription }}</p>
-            </div>
-            <div class="info-section">
-              <h3>技术栈</h3>
-              <div class="tech-stack">
-                <span
-                  v-for="tech in selectedWork.technologies"
-                  :key="tech"
-                  class="tech-tag"
-                  >{{ tech }}</span
-                >
-              </div>
-            </div>
-            <div class="info-section">
-              <h3>项目链接</h3>
-              <div class="project-links">
-                <a
-                  v-if="selectedWork.demoUrl"
-                  :href="selectedWork.demoUrl"
-                  target="_blank"
-                  class="project-link"
-                >
-                  <i class="fas fa-external-link-alt"></i> 在线演示
-                </a>
-                <a
-                  v-if="selectedWork.codeUrl"
-                  :href="selectedWork.codeUrl"
-                  target="_blank"
-                  class="project-link"
-                >
-                  <i class="fab fa-github"></i> 源代码
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <WorkModal
+      :visible="!!selectedWork"
+      :work="selectedWork || {}"
+      @close="closeWorkDetail"
+      @open-preview="openPreview"
+    />
+
+    <!-- 图片放大预览 -->
+    <ImageLightbox :src="previewImage" @close="closePreview" />
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from "vue";
+import WorkCard from "./components/WorkCard.vue";
+import WorkModal from "./components/WorkModal.vue";
+import ImageLightbox from "./components/ImageLightbox.vue";
 
 const activeCategory = ref("all");
 
@@ -116,8 +60,7 @@ const categories = [
   { id: "all", name: "全部作品" },
   { id: "web", name: "网站应用" },
   { id: "app", name: "移动应用" },
-  { id: "tool", name: "工具项目" },
-  { id: "design", name: "设计作品" },
+  { id: "weChatH5", name: "设计作品" },
 ];
 
 const works = [
@@ -202,6 +145,29 @@ const works = [
     codeUrl: null,
   },
   {
+    id: 7,
+    title: "爱上学",
+    description:
+      "一个基于 Vue 3 + Vite 构建的现代化个人博客系统，具有美观的界面和丰富的交互体验",
+    fullDescription:
+      "个人博客项目 - 基于 Vue 3 Composition API 开发，使用动态星空背景效果，响应式设计完美适配各种设备。",
+    mdPath: "/md/AiShangXue/AiShangXue.md",
+    image: "https://via.placeholder.com/400x300",
+    category: "weChatH5",
+    tags: ["Vue 3", "Vite", "博客"],
+    technologies: [
+      "Vue 3",
+      "Vite",
+      "Ant Design Vue",
+      "Element Plus",
+      "Vue Router",
+      "Pinia",
+      "Less",
+    ],
+    demoUrl: null,
+    codeUrl: null,
+  },
+  {
     id: 6,
     title: "天气预报应用",
     description: "一款美观实用的天气预报应用，提供详细的天气信息和预警",
@@ -217,9 +183,7 @@ const works = [
 ];
 
 const filteredWorks = computed(() => {
-  if (activeCategory.value === "all") {
-    return works;
-  }
+  if (activeCategory.value === "all") return works;
   return works.filter((work) => work.category === activeCategory.value);
 });
 
@@ -228,24 +192,33 @@ const getCategoryName = (categoryId) => {
   return category ? category.name : "";
 };
 
+// 弹窗控制
 const selectedWork = ref(null);
+const previewImage = ref("");
 
-const showWorkDetail = (work) => {
+function showWorkDetail(work) {
   selectedWork.value = work;
   document.body.style.overflow = "hidden";
-};
+}
 
-const closeWorkDetail = () => {
+function closeWorkDetail() {
   selectedWork.value = null;
   document.body.style.overflow = "";
-};
+}
+
+function openPreview(src) {
+  previewImage.value = src;
+}
+
+function closePreview() {
+  previewImage.value = "";
+}
 </script>
 
 <style lang="less" scoped>
 .works {
   min-height: 100vh;
   padding: 40px 20px;
-  // background: rgba(255, 255, 255, 0.8);
 
   .container {
     max-width: 1200px;
@@ -255,7 +228,8 @@ const closeWorkDetail = () => {
       text-align: center;
       font-size: 2.5rem;
       margin-bottom: 40px;
-      color: #ffffff;
+      color: #f0f0f0;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
     .page-intro {
@@ -264,9 +238,9 @@ const closeWorkDetail = () => {
       margin: 0 auto 40px;
 
       p {
-        color: #bababa;
-        font-size: 1.1rem;
-        line-height: 1.6;
+        color: rgba(200, 225, 228, 0.82);
+        font-size: 1.05rem;
+        line-height: 1.7;
       }
     }
 
@@ -279,21 +253,30 @@ const closeWorkDetail = () => {
 
       .filter-btn {
         padding: 8px 20px;
-        border: none;
+        border: 1px solid rgba(255, 255, 255, 0.09);
         border-radius: 20px;
-        background: #fff;
-        color: #666;
-        font-size: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+        color: rgba(120, 210, 195, 0.85);
+        font-size: 0.95rem;
         cursor: pointer;
         transition: all 0.3s ease;
 
         &:hover {
-          background: #f0f0f0;
+          background: rgba(255, 255, 255, 0.1);
+          border-color: rgba(255, 255, 255, 0.16);
         }
 
         &.active {
-          background: #4a90e2;
+          background: linear-gradient(
+            135deg,
+            rgba(0, 190, 170, 0.58),
+            rgba(8, 145, 178, 0.58)
+          );
           color: #fff;
+          border-color: rgba(255, 255, 255, 0.12);
+          box-shadow: 0 2px 12px rgba(0, 190, 170, 0.25);
         }
       }
     }
@@ -301,94 +284,7 @@ const closeWorkDetail = () => {
     .works-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 30px;
-
-      .work-card {
-        background: #fff;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        cursor: pointer;
-
-        &:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .work-image {
-          position: relative;
-          height: 200px;
-          overflow: hidden;
-
-          img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-          }
-
-          .work-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: flex-start;
-            justify-content: flex-end;
-            padding: 15px;
-            z-index: 2;
-            box-sizing: border-box;
-
-            .work-category {
-              background: rgba(74, 144, 226, 0.9);
-              color: #fff;
-              padding: 5px 10px;
-              border-radius: 15px;
-              font-size: 0.8rem;
-              position: relative;
-              z-index: 3;
-              box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            }
-          }
-
-          &:hover img {
-            transform: scale(1.05);
-          }
-        }
-
-        .work-info {
-          padding: 20px;
-
-          h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: #333;
-          }
-
-          p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 15px;
-          }
-
-          .work-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-
-            .tag {
-              background: #f0f0f0;
-              color: #666;
-              padding: 4px 10px;
-              border-radius: 15px;
-              font-size: 0.8rem;
-            }
-          }
-        }
-      }
+      gap: 28px;
     }
 
     .back-to-home {
@@ -397,138 +293,28 @@ const closeWorkDetail = () => {
 
       .btn {
         display: inline-block;
-        padding: 12px 30px;
-        background: #4a90e2;
+        padding: 12px 32px;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 190, 170, 0.62),
+          rgba(8, 145, 178, 0.62)
+        );
         color: #fff;
         border-radius: 25px;
         text-decoration: none;
         font-weight: 500;
-        transition: background 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
 
         &:hover {
-          background: #357abd;
-        }
-      }
-    }
-  }
-}
-
-.work-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  padding: 20px;
-
-  .modal-content {
-    background: #fff;
-    border-radius: 10px;
-    max-width: 900px;
-    width: 100%;
-    max-height: 90vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px;
-      border-bottom: 1px solid #eee;
-
-      h2 {
-        font-size: 1.8rem;
-        color: #333;
-      }
-
-      .close-btn {
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        color: #999;
-        cursor: pointer;
-
-        &:hover {
-          color: #333;
-        }
-      }
-    }
-
-    .modal-body {
-      padding: 20px;
-      overflow-y: auto;
-      flex-grow: 1;
-
-      .modal-image {
-        width: 100%;
-        height: 300px;
-        overflow: hidden;
-        border-radius: 8px;
-        margin-bottom: 20px;
-
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      }
-
-      .modal-info {
-        .info-section {
-          margin-bottom: 25px;
-
-          h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: #4a90e2;
-          }
-
-          p {
-            color: #666;
-            line-height: 1.6;
-          }
-
-          .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-
-            .tech-tag {
-              background: #f0f0f0;
-              color: #555;
-              padding: 5px 12px;
-              border-radius: 15px;
-              font-size: 0.9rem;
-            }
-          }
-
-          .project-links {
-            display: flex;
-            gap: 15px;
-
-            .project-link {
-              display: flex;
-              align-items: center;
-              color: #4a90e2;
-              text-decoration: none;
-              font-weight: 500;
-
-              i {
-                margin-right: 5px;
-              }
-
-              &:hover {
-                text-decoration: underline;
-              }
-            }
-          }
+          background: linear-gradient(
+            135deg,
+            rgba(0, 215, 192, 0.8),
+            rgba(14, 185, 213, 0.8)
+          );
+          box-shadow: 0 4px 18px rgba(0, 190, 170, 0.3);
+          transform: translateY(-1px);
         }
       }
     }

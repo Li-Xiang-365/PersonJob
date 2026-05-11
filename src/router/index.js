@@ -33,6 +33,16 @@ const routes = [
         name: "作品",
         component: () => import("@/views/works/index.vue"),
       },
+      {
+        path: "experience",
+        name: "经历",
+        component: () => import("@/views/experience/index.vue"),
+      },
+      {
+        path: "ai-chat",
+        name: "AI助手",
+        component: () => import("@/views/ai-chat/index.vue"),
+      },
     ],
   },
   {
