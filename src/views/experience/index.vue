@@ -323,4 +323,103 @@ const experiences = [
     }
   }
 }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .experience {
+    padding: 24px 12px;
+
+    .container {
+      .page-title {
+        font-size: 1.6rem;
+        margin-bottom: 24px;
+      }
+
+      .page-intro {
+        margin-bottom: 32px;
+
+        p {
+          font-size: 0.93rem;
+        }
+      }
+
+      .timeline {
+        padding-left: 24px;
+
+        &::before {
+          left: 7px;
+        }
+
+        .timeline-item {
+          margin-bottom: 28px;
+
+          .timeline-dot {
+            left: -21px;
+            width: 12px;
+            height: 12px;
+          }
+
+          .timeline-content {
+            padding: 18px 16px;
+            border-radius: 12px;
+
+            .time-period {
+              font-size: 0.8rem;
+              padding: 2px 10px;
+            }
+
+            .exp-title {
+              font-size: 1.1rem;
+            }
+
+            .exp-company {
+              font-size: 0.9rem;
+              margin-bottom: 10px;
+            }
+
+            .exp-project {
+              font-size: 0.88rem;
+              margin-bottom: 10px;
+            }
+
+            .exp-section {
+              margin-bottom: 10px;
+
+              .section-label {
+                font-size: 0.82rem;
+              }
+
+              .exp-list {
+                li {
+                  padding-left: 14px;
+                  margin-bottom: 6px;
+                  font-size: 0.85rem;
+                  line-height: 1.6;
+                }
+              }
+            }
+
+            .exp-tags {
+              gap: 6px;
+
+              .tag {
+                padding: 3px 10px;
+                font-size: 0.78rem;
+              }
+            }
+          }
+        }
+      }
+
+      .back-to-home {
+        margin-top: 32px;
+
+        .btn {
+          padding: 10px 24px;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}
 </style>

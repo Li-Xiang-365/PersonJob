@@ -14,6 +14,20 @@
       <span class="nav-label">{{ item.name }}</span>
     </router-link>
   </nav>
+
+  <!-- 移动端底部导航 -->
+  <nav class="mobile-nav">
+    <router-link
+      v-for="(item, index) in navItems"
+      :key="item.path"
+      :to="item.path"
+      class="mobile-nav-item"
+      :class="{ active: currentIndex === index }"
+    >
+      <i :class="item.icon"></i>
+      <span class="mobile-nav-label">{{ item.name }}</span>
+    </router-link>
+  </nav>
 </template>
 
 <script setup>
@@ -24,11 +38,11 @@ const route = useRoute();
 const router = useRouter();
 
 const navItems = [
-  { name: "首页", path: "/home/about" },
-  { name: "技能", path: "/home/skills" },
-  { name: "经历", path: "/home/experience" },
-  { name: "作品", path: "/home/works" },
-  { name: "AI", path: "/home/ai-chat" },
+  { name: "首页", path: "/home/about", icon: "fas fa-home" },
+  { name: "技能", path: "/home/skills", icon: "fas fa-code" },
+  { name: "经历", path: "/home/experience", icon: "fas fa-briefcase" },
+  { name: "作品", path: "/home/works", icon: "fas fa-folder-open" },
+  { name: "AI", path: "/home/ai-chat", icon: "fas fa-robot" },
 ];
 
 const currentIndex = ref(0);
@@ -66,6 +80,7 @@ function navigateByWheel(e) {
 </script>
 
 <style lang="less" scoped>
+/* PC端左侧浮动导航 */
 .float-nav {
   position: fixed;
   left: 24px;
@@ -167,6 +182,69 @@ function navigateByWheel(e) {
   }
 }
 
+/* 移动端底部导航 */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  height: var(--nav-height-mobile, 60px);
+  background: rgba(10, 16, 24, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+
+  .mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    text-decoration: none;
+    color: rgba(160, 190, 200, 0.65);
+    font-size: 0.68rem;
+    gap: 3px;
+    padding: 6px 0;
+    transition: color 0.25s ease;
+    position: relative;
+
+    i {
+      font-size: 1.15rem;
+      transition: all 0.25s ease;
+    }
+
+    .mobile-nav-label {
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    &.router-link-active,
+    &.active {
+      color: #2dd4bf;
+
+      i {
+        text-shadow: 0 0 12px rgba(45, 212, 191, 0.5);
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 2px;
+        background: linear-gradient(90deg, rgba(0, 190, 170, 0.8), rgba(8, 145, 178, 0.8));
+        border-radius: 0 0 2px 2px;
+      }
+    }
+  }
+}
+
 @keyframes dotPulse {
   0%,
   100% {
@@ -179,21 +257,15 @@ function navigateByWheel(e) {
   }
 }
 
+/* 移动端适配 */
 @media (max-width: 768px) {
   .float-nav {
-    left: 12px;
-    gap: 18px;
+    display: none;
+  }
 
-    .nav-item {
-      .nav-dot {
-        width: 14px;
-        height: 14px;
-      }
-
-      .nav-label {
-        font-size: 13px;
-      }
-    }
+  .mobile-nav {
+    display: flex;
+    align-items: stretch;
   }
 }
 </style>

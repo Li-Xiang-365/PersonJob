@@ -432,4 +432,94 @@ function handleEsc(e) {
     }
   }
 }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .work-modal {
+    padding: 0;
+    align-items: flex-end;
+
+    .modal-content {
+      max-height: 92vh;
+      border-radius: 16px 16px 0 0;
+      max-width: 100%;
+
+      .modal-header {
+        padding: 14px 16px;
+
+        h2 {
+          font-size: 1.25rem;
+        }
+
+        .close-btn {
+          width: 30px;
+          height: 30px;
+          font-size: 1.2rem;
+        }
+      }
+
+      .modal-body {
+        padding: 16px;
+
+        .modal-info {
+          .info-section {
+            margin-bottom: 16px;
+
+            h3 {
+              font-size: 1.05rem;
+              margin-bottom: 8px;
+            }
+
+            p {
+              font-size: 0.88rem;
+            }
+
+            .tech-stack {
+              gap: 6px;
+
+              .tech-tag {
+                padding: 4px 10px;
+                font-size: 0.82rem;
+              }
+            }
+
+            .project-links {
+              flex-direction: column;
+              gap: 10px;
+
+              .project-link {
+                justify-content: center;
+                padding: 10px 14px;
+                font-size: 0.9rem;
+              }
+            }
+
+            :deep(.md-content) {
+              font-size: 0.88rem;
+
+              h1 {
+                font-size: 1.3rem;
+              }
+
+              h2 {
+                font-size: 1.1rem;
+              }
+
+              pre {
+                padding: 10px 12px;
+                font-size: 0.82rem;
+              }
+
+              table {
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
 </style>

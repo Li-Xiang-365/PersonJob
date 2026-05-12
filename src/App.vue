@@ -37,6 +37,7 @@ body {
 .main-content {
   width: 100%;
   min-height: 100vh;
+  padding-left: 72px;
 }
 
 .fade-enter-active,
@@ -47,5 +48,13 @@ body {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .main-content {
+    padding-left: 0;
+    padding-bottom: var(--nav-height-mobile, 60px);
+  }
 }
 </style>

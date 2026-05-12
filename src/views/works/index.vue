@@ -133,4 +133,40 @@ function closePreview() {
     }
   }
 }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .works {
+    padding: 24px 12px;
+
+    .container {
+      .page-title {
+        font-size: 1.6rem;
+        margin-bottom: 24px;
+      }
+
+      .page-intro {
+        margin-bottom: 24px;
+
+        p {
+          font-size: 0.93rem;
+        }
+      }
+
+      .works-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .back-to-home {
+        margin-top: 32px;
+
+        .btn {
+          padding: 10px 24px;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}
 </style>

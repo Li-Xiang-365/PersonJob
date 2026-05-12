@@ -133,4 +133,40 @@ defineEmits(["click"]);
     }
   }
 }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .work-card {
+    .work-image {
+      height: 160px;
+    }
+
+    .work-info {
+      padding: 14px;
+
+      h3 {
+        font-size: 1.05rem;
+        margin-bottom: 8px;
+      }
+
+      p {
+        font-size: 0.86rem;
+        margin-bottom: 10px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+      }
+
+      .work-tags {
+        gap: 6px;
+
+        .tag {
+          padding: 3px 9px;
+          font-size: 0.75rem;
+        }
+      }
+    }
+  }
+}
 </style>

@@ -510,4 +510,88 @@ async function sendMessage() {
     }
   }
 }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .ai-chat {
+    padding: 16px 8px;
+    padding-bottom: 0;
+
+    .chat-container {
+      max-width: none;
+      height: calc(100vh - 32px - var(--nav-height-mobile, 60px));
+      border-radius: 14px;
+
+      .page-title {
+        font-size: 1.3rem;
+        padding: 16px 0 2px;
+      }
+
+      .page-subtitle {
+        font-size: 0.78rem;
+        padding-bottom: 10px;
+      }
+
+      .chat-messages {
+        padding: 10px 12px;
+
+        .message {
+          gap: 8px;
+          margin-bottom: 14px;
+
+          .message-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            font-size: 0.68rem;
+          }
+
+          .message-body {
+            max-width: 85%;
+
+            .message-text {
+              padding: 10px 12px;
+              font-size: 0.88rem;
+              line-height: 1.6;
+            }
+          }
+        }
+
+        .typing-indicator {
+          padding: 8px 12px;
+
+          .dot {
+            width: 6px;
+            height: 6px;
+          }
+        }
+      }
+
+      .quick-questions {
+        padding: 0 12px 10px;
+        gap: 6px;
+
+        .quick-btn {
+          padding: 6px 12px;
+          font-size: 0.78rem;
+        }
+      }
+
+      .input-area {
+        padding: 10px 12px 14px;
+        gap: 8px;
+
+        .chat-input {
+          padding: 10px 14px;
+          font-size: 0.88rem;
+        }
+
+        .send-btn {
+          padding: 10px 16px;
+          font-size: 0.85rem;
+        }
+      }
+    }
+  }
+}
 </style>

@@ -84,6 +84,7 @@ const closeModal = function () {
   .content {
     width: 80%;
     max-width: 600px;
+    margin-top: 5%;
 
     .profile-card {
       background: rgba(255, 255, 255, 0.07);
@@ -303,14 +304,89 @@ const closeModal = function () {
  */
 @keyframes zoomIn {
   from {
-    // 动画的起始状态
-    opacity: 0; // 初始透明度为0（完全透明）
-    transform: scale(0.7); // 初始缩放比例为0.7（原始大小的70%）
+    opacity: 0;
+    transform: scale(0.7);
   }
   to {
-    // 动画的结束状态
-    opacity: 1; // 最终透明度为1（完全不透明）
-    transform: scale(1); // 最终缩放比例为1（原始大小）
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .home {
+    padding: 12px 0;
+
+    .content {
+      width: 92%;
+      max-width: none;
+
+      .profile-card {
+        padding: 24px 18px;
+        border-radius: 14px;
+
+        .avatar {
+          margin-bottom: 16px;
+
+          img {
+            width: 90px;
+            height: 90px;
+          }
+        }
+
+        h1 {
+          font-size: 1.6rem;
+          margin-bottom: 6px;
+        }
+
+        .title {
+          font-size: 0.95rem;
+          margin-bottom: 16px;
+        }
+
+        .info {
+          margin-bottom: 18px;
+
+          p {
+            margin: 7px 0;
+            font-size: 0.88rem;
+          }
+        }
+
+        .bio {
+          margin-bottom: 20px;
+
+          p {
+            font-size: 0.88rem;
+            line-height: 1.65;
+          }
+        }
+
+        .social-links {
+          gap: 12px;
+          margin-bottom: 20px;
+
+          .social-link {
+            width: 38px;
+            height: 38px;
+
+            i {
+              font-size: 1rem;
+            }
+          }
+        }
+
+        .actions {
+          flex-wrap: wrap;
+
+          .btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
   }
 }
 </style>

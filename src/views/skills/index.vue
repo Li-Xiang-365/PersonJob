@@ -280,4 +280,91 @@ import { skills } from "./skillsData.js";
     }
   }
 }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .skills {
+    padding: 24px 12px;
+
+    .container {
+      .page-title {
+        font-size: 1.6rem;
+        margin-bottom: 24px;
+      }
+
+      .page-intro {
+        margin-bottom: 28px;
+
+        p {
+          font-size: 0.93rem;
+        }
+      }
+
+      .skills-container {
+        .skill-category {
+          margin-bottom: 32px;
+
+          .category-title {
+            font-size: 1.25rem;
+            margin-bottom: 16px;
+          }
+
+          .skills-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+
+            .skill-card {
+              padding: 18px;
+
+              .skill-header {
+                margin-bottom: 14px;
+
+                .skill-icon {
+                  width: 42px;
+                  height: 42px;
+                  margin-right: 12px;
+
+                  i {
+                    font-size: 1.35rem;
+                  }
+                }
+
+                .skill-header-text {
+                  h3 {
+                    font-size: 1.02rem;
+                  }
+                }
+              }
+
+              .skill-level {
+                margin-bottom: 10px;
+
+                .skill-progress {
+                  height: 6px;
+                }
+
+                .level-text {
+                  font-size: 0.82rem;
+                }
+              }
+
+              .skill-description {
+                font-size: 0.86rem;
+              }
+            }
+          }
+        }
+      }
+
+      .back-to-home {
+        margin-top: 32px;
+
+        .btn {
+          padding: 10px 24px;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}
 </style>

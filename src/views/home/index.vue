@@ -50,4 +50,12 @@ import BgCanvas from "@/components/BgCanvas.vue";
 .fade-leave-to {
   opacity: 0;
 }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .home {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
 </style>

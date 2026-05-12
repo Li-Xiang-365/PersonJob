@@ -88,4 +88,22 @@ onUnmounted(() => document.removeEventListener("keydown", onKeydown));
     transform: scale(1);
   }
 }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .image-lightbox {
+    .lightbox-img {
+      max-width: 95vw;
+      max-height: 80vh;
+    }
+
+    .lightbox-close {
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      font-size: 1.5rem;
+    }
+  }
+}
 </style>

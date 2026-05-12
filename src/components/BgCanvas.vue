@@ -27,8 +27,10 @@ const overflow_threshold = ref(50); // 溢出阈值
 // 星星数量计算：根据屏幕宽度和高度的总和来决定星星的数量
 // 使用Math.floor函数对结果进行向下取整，确保数量为整数
 // 屏幕尺寸越大，显示的星星数量越多，提供更好的视觉效果
+// 移动端减少星星数量以提升性能
+const isMobile = ref(window.innerWidth <= 768);
 const star_count = ref(
-  Math.floor((window.innerWidth + window.innerHeight) / 15)
+  Math.floor((window.innerWidth + window.innerHeight) / (isMobile.value ? 25 : 15))
 ); // 星星数量
 const stars = ref([]); // 星星数组
 const pointerX = ref(null); // 鼠标X坐标
@@ -177,6 +179,26 @@ const handleResize = () => {
   // 清除之前的动画帧
   if (animationFrameId.value) {
     cancelAnimationFrame(animationFrameId.value);
+  }
+
+  // 检测移动端并调整星星数量
+  const newIsMobile = window.innerWidth <= 768;
+  if (newIsMobile !== isMobile.value) {
+    isMobile.value = newIsMobile;
+    const newCount = Math.floor((window.innerWidth + window.innerHeight) / (isMobile.value ? 25 : 15));
+    if (newCount < stars.value.length) {
+      stars.value.length = newCount;
+    } else {
+      for (let i = stars.value.length; i < newCount; i++) {
+        stars.value.push({
+          x: 0,
+          y: 0,
+          z: star_min_scale.value + Math.random() * (1 - star_min_scale.value),
+          color: getStarColor(),
+          twinkle: Math.random() * Math.PI * 2,
+        });
+      }
+    }
   }
 
   // 重新设置画布

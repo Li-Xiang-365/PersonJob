@@ -1,40 +1,27 @@
 /* 全局样式变量 */
 :root {
   // 颜色
-  --primary-color: #1890ff;
+  --primary-color: #00C0AA;
   --success-color: #52c41a;
   --warning-color: #faad14;
   --error-color: #f5222d;
-  --info-color: #1890ff;
+  --info-color: #00C0AA;
 
   // 文字颜色
-  --text-color: rgba(0, 0, 0, 0.85);
-  --text-color-secondary: rgba(0, 0, 0, 0.45);
+  --text-color: rgba(220, 235, 240, 0.88);
+  --text-color-secondary: rgba(185, 215, 222, 0.78);
   --text-color-inverse: #fff;
 
   // 背景颜色
-  --background-color: #f0f2f5;
-  --component-background: #fff;
+  --background-color: transparent;
+  --component-background: rgba(255, 255, 255, 0.05);
 
   // 边框颜色
-  --border-color: #d9d9d9;
-  --border-radius-base: 4px;
+  --border-color: rgba(255, 255, 255, 0.09);
+  --border-radius-base: 14px;
 
-  // 布局
-  --layout-header-height: 64px;
-  --layout-header-padding: 0 50px;
-  --layout-footer-padding: 24px 50px;
-  --layout-sider-background: #001529;
-  --layout-trigger-height: 48px;
-  --layout-trigger-background: #002140;
-  --layout-zero-trigger-height: 36px;
-  --layout-zero-trigger-background: #001529;
-  --layout-zero-trigger-color: #fff;
-
-  // 动画
-  --animation-duration-slow: 0.3s;
-  --animation-duration-base: 0.2s;
-  --animation-duration-fast: 0.1s;
+  // 导航
+  --nav-height-mobile: 60px;
 }
 
 /* 全局样式重置 */
@@ -52,6 +39,9 @@ html, body {
   line-height: 1.5;
   color: var(--text-color);
   background-color: var(--background-color);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 #app {
@@ -61,22 +51,32 @@ html, body {
 
 /* 滚动条样式 */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 3px;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 移动端隐藏滚动条 */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
 /* 通用工具类 */
