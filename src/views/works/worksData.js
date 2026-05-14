@@ -6,7 +6,7 @@ export const works = [
       "一款智能教学管理系统，采用 **小程序 + 后台管理** 双端架构。系统面向教育场景，为教师和学生提供课堂管理、作业发布与提交、签到、测验投票、公告通知等一站式教学互动功能",
     fullDescription:
       "个人博客项目 - 基于 Vue 3 Composition API 开发，使用动态星空背景效果，响应式设计完美适配各种设备。",
-    mdPath: "/md/AiShangXue/AiShangXue.md",
+    mdPath: "./md/AiShangXue/AiShangXue.md",
     image:
       "https://foruda.gitee.com/images/1776077490577704819/20831ae5_14359049.png",
     category: "小程序",

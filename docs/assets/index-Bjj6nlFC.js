@@ -1,4 +1,4 @@
-import{_ as R,r as h,c as p,e as s,j as w,F as I,n as S,D as G,E as D,G as L,C as A,d as v,p as V,t as C}from"./index-CqkuNSEP.js";import{M as N}from"./index-_Dy2zPzC.js";const U=`你是一名专业的 AI 助手，负责回答关于"李想"的问题。以下是他的简历信息，请基于这些信息准确并完整回答，语气友好专业。
+import{_ as R,r as h,c as p,e as s,j as w,F as I,n as S,D as G,E as D,G as L,C as A,d as v,p as V,t as C}from"./index-CeTbsJZH.js";import{M as N}from"./index-_Dy2zPzC.js";const U=`你是一名专业的 AI 助手，负责回答关于"李想"的问题。以下是他的简历信息，请基于这些信息准确并完整回答，语气友好专业。
 
 ## 基本信息
 - 姓名：李想
