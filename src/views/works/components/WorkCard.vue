@@ -3,7 +3,13 @@
     <div class="work-image">
       <img :src="work.image" :alt="work.title" />
       <div class="work-overlay">
-        <span class="work-category">{{ work.category }}</span>
+        <div class="category-list">
+          <span
+            v-for="cat in Array.isArray(work.category) ? work.category : [work.category]"
+            :key="cat"
+            class="work-category"
+          >{{ cat }}</span>
+        </div>
       </div>
     </div>
     <div class="work-info">
@@ -77,6 +83,13 @@ defineEmits(["click"]);
       padding: 15px;
       z-index: 2;
       box-sizing: border-box;
+
+      .category-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: flex-end;
+      }
 
       .work-category {
         background: linear-gradient(

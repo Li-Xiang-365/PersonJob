@@ -32,7 +32,7 @@
 
 ```
 ┌─────────────────────────────────────────────┐
-│              学生端 (微信小程序)              │
+│              学生端 (微信小程序)             │
 │          UniApp + Vue3 + Pinia + SCSS       │
 └──────────────────┬──────────────────────────┘
                    │ HTTP API
@@ -51,9 +51,9 @@
 
 <div align="center">
 <img src="https://foruda.gitee.com/images/1776077490577704819/20831ae5_14359049.png" alt="教师端-首页" width="400">
-<img src="./md/AiShangXue/教师-课堂管理.png" alt="教师端-课堂管理" width="400">
-<img src="./md/AiShangXue/教师-作业管理.png" alt="教师端-作业管理" width="400">
-<img src="./md/AiShangXue/首页.png" alt="学生端-首页" width="400">
-<img src="./md/AiShangXue/课程详情.png" alt="学生端-课程详情" width="400">
-<img src="./md/AiShangXue/我的.png" alt="学生端-我的" width="400">
+<img src="/md/AiShangXue/教师-课堂管理.png" alt="教师端-课堂管理" width="400">
+<img src="/md/AiShangXue/教师-作业管理.png" alt="教师端-作业管理" width="400">
+<img src="/md/AiShangXue/首页.png" alt="学生端-首页" width="400">
+<img src="/md/AiShangXue/课程详情.png" alt="学生端-课程详情" width="400">
+<img src="/md/AiShangXue/我的.png" alt="学生端-我的" width="400">
 </div>
